@@ -8,4 +8,13 @@
         android:id="@+id/contentFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/dialogFrameLayout"
+        android:background="@color/default_background"
+        android:elevation="10dp"
+        android:layout_margin="32dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </FrameLayout>

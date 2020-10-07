@@ -8,4 +8,5 @@
     <color name="default_background">#ffffff</color>
     <color name="default_ripple">#bcbcbc</color>
     <color name="default_delimiter">#bcbcbc</color>
+    <color name="second_text">#666666</color>
 </resources>

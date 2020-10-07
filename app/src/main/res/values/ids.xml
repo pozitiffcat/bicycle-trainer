@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="device_settings_menu_power" type="id" />
+    <item name="device_settings_menu_speed" type="id" />
+    <item name="device_settings_menu_cadence" type="id" />
+    <item name="device_settings_menu_heart" type="id" />
+    <item name="menu_new_ride" type="id" />
+    <item name="menu_device_settings" type="id" />
+</resources>

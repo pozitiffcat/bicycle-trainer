@@ -11,12 +11,29 @@
     <TextView
         android:id="@+id/nameTextView"
         tools:text="nameTextView"
+        android:fontFamily="@font/pixeled"
+        android:textAllCaps="true"
         android:textColor="@color/default_text"
         android:textSize="@dimen/default_text_size"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/contentTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/contentTextView"
+        tools:text="contentTextView"
+        android:fontFamily="@font/pixeled"
+        android:textAllCaps="true"
+        android:textColor="@color/second_text"
+        android:textSize="@dimen/second_text_size"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/default_view_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
