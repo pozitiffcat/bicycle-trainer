@@ -48,7 +48,7 @@ class HeartDeviceMenuFragment : MenuAdapterFragment() {
                 func = { }
             )
         } else if (items.isEmpty()) {
-            MenuAdapter.Item(
+            items += MenuAdapter.Item(
                 id = 0,
                 nameLine = getString(R.string.device_settings_search_no_devices_found),
                 func = { }
