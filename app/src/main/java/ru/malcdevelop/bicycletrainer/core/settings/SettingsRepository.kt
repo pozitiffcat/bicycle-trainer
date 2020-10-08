@@ -1,8 +1,9 @@
-package ru.malcdevelop.bicycletrainer.core
+package ru.malcdevelop.bicycletrainer.core.settings
 
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.malcdevelop.bicycletrainer.core.data.DeviceId
 
 private const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES_NAME"
 private const val POWER_DEVICE_DATA_PREFERENCE = "POWER_DEVICE_DATA_PREFERENCE"
@@ -24,8 +25,8 @@ class SettingsRepository(
                 DeviceId(
                     sharedPreferences.getString(POWER_DEVICE_DATA_PREFERENCE, null) ?: ""
                 )
-
-            null
+            else
+                null
         }
     }
 
@@ -43,8 +44,8 @@ class SettingsRepository(
                 DeviceId(
                     sharedPreferences.getString(SPEED_DEVICE_DATA_PREFERENCE, null) ?: ""
                 )
-
-            null
+            else
+                null
         }
     }
 
@@ -62,8 +63,8 @@ class SettingsRepository(
                 DeviceId(
                     sharedPreferences.getString(CADENCE_DEVICE_DATA_PREFERENCE, null) ?: ""
                 )
-
-            null
+            else
+                null
         }
     }
 

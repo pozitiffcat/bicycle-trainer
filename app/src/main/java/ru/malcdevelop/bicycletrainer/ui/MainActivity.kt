@@ -7,21 +7,11 @@ import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.malcdevelop.bicycletrainer.R
-import ru.malcdevelop.bicycletrainer.core.DeviceRepository
-import ru.malcdevelop.bicycletrainer.core.SettingsRepository
 import ru.malcdevelop.bicycletrainer.ui.settings.DeviceSettingsFragment
 
 private const val DIALOG_TAG = "DIALOG_TAG"
 
 class MainActivity : AppCompatActivity() {
-
-    val settingsRepository: SettingsRepository by lazy {
-        SettingsRepository(this)
-    }
-
-    val deviceRepository: DeviceRepository by lazy {
-        DeviceRepository(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,10 +7,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import ru.malcdevelop.bicycletrainer.R
+import ru.malcdevelop.bicycletrainer.core.devices.DeviceRepository
 import ru.malcdevelop.bicycletrainer.ui.menuadapter.MenuAdapter
 import ru.malcdevelop.bicycletrainer.ui.menuadapter.MenuAdapterFragment
 
-class HeartDeviceMenuFragment : MenuAdapterFragment() {
+class DeviceAdapterMenuFragment : MenuAdapterFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,23 +25,25 @@ class HeartDeviceMenuFragment : MenuAdapterFragment() {
     }
 
     private fun generateItems(): List<MenuAdapter.Item> {
-        val items = mainActivity?.deviceRepository?.foundHeartDevices?.map {
+        val callback = (targetFragment as? Callback)
+
+        val foundDevices = callback?.getFoundDevices(targetRequestCode)
+            ?: listOf()
+
+        val items = foundDevices.map {
             MenuAdapter.Item(
                 id = 0,
                 nameLine = it.name,
                 contentLine = it.name,
                 func = {
                     lifecycleScope.launch {
-                        mainActivity?.settingsRepository?.updateHeartDevice(
-                            it.deviceId
-                        )
-                        mainActivity?.hideDialog()
+                        callback?.onSelectedDevice(targetRequestCode, it)
                     }
                 }
             )
-        }?.toMutableList() ?: mutableListOf()
+        }.toMutableList()
 
-        if (mainActivity?.deviceRepository?.isSearchActive == true) {
+        if (mainApp?.deviceRepository?.isSearchActive == true) {
             items += MenuAdapter.Item(
                 id = 0,
                 nameLine = getString(R.string.device_settings_search_in_progress_line_1),
@@ -56,5 +59,11 @@ class HeartDeviceMenuFragment : MenuAdapterFragment() {
         }
 
         return items
+    }
+
+    /** Callback **/
+    interface Callback {
+        fun getFoundDevices(requestCode: Int): List<DeviceRepository.FoundDevice>
+        fun onSelectedDevice(requestCode: Int, foundDevice: DeviceRepository.FoundDevice)
     }
 }
