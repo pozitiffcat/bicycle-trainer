@@ -15,6 +15,10 @@ class SpeedDevice(
     private var state: DeviceState = DeviceState.UNRECOGNIZED
     private var mutableSpeedMps: Double = 0.0
 
+    private var lastTimeMillis = 0L
+    private var lastTicks: Long = -1L
+    private var attempts = 0
+
     var wheelMeters: Double = 2.105 /** 700Cx25 default **/
 
     val speedMps: Double
@@ -45,30 +49,33 @@ class SpeedDevice(
     private val stateChangeReceiver =
         AntPluginPcc.IDeviceStateChangeReceiver { deviceState -> state = deviceState }
 
-    private var lastTimeMillis = 0L
-    private var ticks: Long = -1L
-
     private val rawDataEventReceiver =
-        AntPlusBikeSpeedDistancePcc.IRawSpeedAndDistanceDataReceiver { _, _, t, n ->
-            val currentTimeMillis = System.currentTimeMillis()
+        AntPlusBikeSpeedDistancePcc.IRawSpeedAndDistanceDataReceiver { ts, e, t, n ->
+            val currentTimeMillis = (t.toDouble() * 1000.0).toLong()
 
             if (lastTimeMillis == 0L)
-                lastTimeMillis = System.currentTimeMillis()
+                lastTimeMillis = currentTimeMillis
 
-            if (ticks < 0)
-                ticks = n
+            if (lastTicks < 0)
+                lastTicks = n
 
             val deltaTime = currentTimeMillis - lastTimeMillis
 
-            if (deltaTime >= 3000) {
-                val seconds = deltaTime * 0.001
-                val factor = 1.0 / seconds
+            val deltaSeconds = deltaTime * 0.001
 
-                mutableSpeedMps = (n - ticks) * wheelMeters * factor
-
-                lastTimeMillis = currentTimeMillis
-                ticks = n
+            if (deltaSeconds > 0) {
+                attempts = 0
+                mutableSpeedMps = (n - lastTicks) * wheelMeters / deltaSeconds
+            } else {
+                attempts++
             }
+
+            if (attempts > 5) {
+                mutableSpeedMps = 0.0
+            }
+
+            lastTimeMillis = currentTimeMillis
+            lastTicks = n
         }
 
     fun open() {

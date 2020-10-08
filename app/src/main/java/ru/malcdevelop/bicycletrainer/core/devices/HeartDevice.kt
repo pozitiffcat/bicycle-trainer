@@ -1,7 +1,6 @@
 package ru.malcdevelop.bicycletrainer.core.devices
 
 import android.content.Context
-import android.util.Log
 import com.dsi.ant.plugins.antplus.pcc.AntPlusHeartRatePcc
 import com.dsi.ant.plugins.antplus.pcc.defines.DeviceState
 import com.dsi.ant.plugins.antplus.pcc.defines.RequestAccessResult
@@ -46,7 +45,6 @@ class HeartDevice(
 
     private val dataEventReceiver =
         AntPlusHeartRatePcc.IHeartRateDataReceiver { _, _, computedHeartRate, _, _, _ ->
-            Log.d("123456", "heart $mutableHeartBpm")
             mutableHeartBpm = computedHeartRate
         }
 
