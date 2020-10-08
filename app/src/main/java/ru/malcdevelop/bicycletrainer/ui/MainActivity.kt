@@ -60,19 +60,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showDialogFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.contentFrameLayout, fragment)
-            .commit()
+        supportFragmentManager.beginTransaction().apply {
+            if (supportFragmentManager.findFragmentByTag(DIALOG_TAG) != null)
+                supportFragmentManager.popBackStack()
 
-//        supportFragmentManager.beginTransaction().apply {
-//            if (supportFragmentManager.findFragmentByTag(DIALOG_TAG) != null)
-//                supportFragmentManager.popBackStack()
-//
-//            addToBackStack(null)
-//            replace(R.id.dialogFrameLayout, fragment, DIALOG_TAG)
-//            commit()
-//        }
+            addToBackStack(null)
+            replace(R.id.dialogFrameLayout, fragment, DIALOG_TAG)
+            commit()
+        }
     }
 
     fun hideDialog() {
