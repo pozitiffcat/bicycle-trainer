@@ -5,7 +5,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
-import kotlinx.android.synthetic.main.fragment_menu.menuRecyclerView
+import kotlinx.android.synthetic.main.fragment_device_settings.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
         get() = getString(R.string.device_settings_title)
 
     private val menuAdapter: MenuAdapter?
-        get() = menuRecyclerView.adapter as? MenuAdapter
+        get() = menuRecyclerView?.adapter as? MenuAdapter
 
     override fun onResume() {
         super.onResume()
@@ -92,7 +92,7 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
     }
 
     private fun updatePowerDeviceItem() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
                 val device = mainApp?.settingsRepository?.getPowerDevice()?.let { deviceId ->
                     mainApp?.deviceRepository?.getPowerDeviceByDeviceId(deviceId)
@@ -116,7 +116,7 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
     }
 
     private fun updateSpeedDeviceItem() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
                 val device = mainApp?.settingsRepository?.getSpeedDevice()?.let { deviceId ->
                     mainApp?.deviceRepository?.getSpeedDeviceByDeviceId(deviceId)
@@ -143,7 +143,7 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
     }
 
     private fun updateCadenceDeviceItem() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
                 val device = mainApp?.settingsRepository?.getCadenceDevice()?.let { deviceId ->
                     mainApp?.deviceRepository?.getCadenceDeviceByDeviceId(deviceId)
@@ -167,7 +167,7 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
     }
 
     private fun updateHeartDeviceItem() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
                 val device = mainApp?.settingsRepository?.getHeartDevice()?.let { deviceId ->
                     mainApp?.deviceRepository?.getHeartDeviceByDeviceId(deviceId)
@@ -233,7 +233,7 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
     }
 
     override fun onSelectedDevice(requestCode: Int, foundDevice: DeviceRepository.FoundDevice) {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             when (requestCode) {
                 POWER_DEVICE_REQUEST_CODE -> {
                     mainApp?.settingsRepository?.updatePowerDevice(foundDevice.deviceId)

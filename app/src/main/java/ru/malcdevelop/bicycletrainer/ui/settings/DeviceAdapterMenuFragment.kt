@@ -16,7 +16,7 @@ class DeviceAdapterMenuFragment : MenuAdapterFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             while (isActive) {
                 menuAdapter.setNewItems(generateItems())
                 delay(1000)
@@ -36,7 +36,7 @@ class DeviceAdapterMenuFragment : MenuAdapterFragment() {
                 nameLine = it.name,
                 contentLine = it.name,
                 func = {
-                    lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycleScope.launch {
                         callback?.onSelectedDevice(targetRequestCode, it)
                     }
                 }
