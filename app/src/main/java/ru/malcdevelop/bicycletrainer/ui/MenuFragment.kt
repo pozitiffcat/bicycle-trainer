@@ -12,6 +12,9 @@ class MenuFragment : MainFragment() {
 
     override val layoutRes: Int = R.layout.fragment_menu
 
+    override val title: String?
+        get() = getString(R.string.menu_title)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

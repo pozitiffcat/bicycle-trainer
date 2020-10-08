@@ -12,4 +12,6 @@
     <string name="device_settings_search_in_progress_line_1">Search</string>
     <string name="device_settings_search_in_progress_line_2">in progress...</string>
     <string name="device_settings_search_no_devices_found">No devices found</string>
+    <string name="menu_title">Main Menu</string>
+    <string name="device_settings_title">Device Settings</string>
 </resources>

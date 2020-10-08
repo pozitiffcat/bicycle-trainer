@@ -9,6 +9,8 @@ abstract class MainFragment : BaseFragment() {
 
     protected abstract val layoutRes: Int
 
+    open val title: String? = null
+
     final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

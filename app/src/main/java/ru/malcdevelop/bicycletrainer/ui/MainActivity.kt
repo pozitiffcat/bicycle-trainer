@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.malcdevelop.bicycletrainer.R
 import ru.malcdevelop.bicycletrainer.ui.settings.DeviceSettingsFragment
@@ -16,6 +17,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportFragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
+            override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
+                super.onFragmentStarted(fm, f)
+                if (f.id == R.id.contentFrameLayout) {
+                    (f as? MainFragment)?.title?.let {
+                        supportActionBar?.title = it
+                    }
+                }
+            }
+        }, false)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

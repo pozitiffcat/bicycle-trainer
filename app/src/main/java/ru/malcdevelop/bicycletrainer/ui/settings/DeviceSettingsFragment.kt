@@ -23,6 +23,9 @@ class DeviceSettingsFragment : MainFragment(), DeviceAdapterMenuFragment.Callbac
 
     override val layoutRes: Int = R.layout.fragment_device_settings
 
+    override val title: String?
+        get() = getString(R.string.device_settings_title)
+
     private val menuAdapter: MenuAdapter?
         get() = menuRecyclerView.adapter as? MenuAdapter
 
